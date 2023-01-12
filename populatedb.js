@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 console.log(
-  "This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.lz91hw2.mongodb.net/?retryWrites=true&w=majority"
+  "This script populates your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.lz91hw2.mongodb.net/?retryWrites=true&w=majority"
 );
 
 // Get arguments passed on command line
@@ -41,11 +41,12 @@ function categoryCreate(name, description, cb) {
   });
 }
 
-function itemCreate(name, description, category, stock, cb) {
+function itemCreate(name, description, category, price, stock, cb) {
   itemdetail = {
     name: name,
     description: description,
     category: category,
+    price: price,
     stock: stock,
   };
 
@@ -102,6 +103,7 @@ function createItems(cb) {
           "Men's Denim Jacket",
           "A classic men's denim jacket featuring a button-front design and multiple pockets.",
           categories[0],
+          40,
           73,
           callback
         );
@@ -111,6 +113,7 @@ function createItems(cb) {
           "Samsung Galaxy S20 5G",
           "A 5G-enabled smartphone featuring a 6.2-inch display, triple rear camera, and long-lasting battery life.",
           categories[1],
+          800,
           34,
           callback
         );
@@ -120,6 +123,7 @@ function createItems(cb) {
           "Memory Foam Pillow",
           "A memory foam pillow that conforms to the shape of your head and neck for optimal support and comfort.",
           categories[2],
+          20,
           59,
           callback
         );
@@ -129,6 +133,7 @@ function createItems(cb) {
           "Wilson Pro Staff Tennis Racket",
           "A high-performance tennis racket designed for advanced players with a lightweight and balanced frame.",
           categories[3],
+          200,
           87,
           callback
         );
@@ -138,6 +143,7 @@ function createItems(cb) {
           "L'Oreal Paris Elvive Total Repair 5 Shampoo",
           "A nourishing shampoo that repairs and fortifies damaged hair.",
           categories[4],
+          8,
           12,
           callback
         );
@@ -147,6 +153,7 @@ function createItems(cb) {
           "Organic Fair Trade Dark Chocolate",
           "A rich, organic and fair trade dark chocolate with a deep and complex flavor profile.",
           categories[5],
+          12,
           68,
           callback
         );
@@ -156,6 +163,7 @@ function createItems(cb) {
           "Harry Potter and the Sorcerer's Stone",
           "The first book in the best-selling Harry Potter series, describing the adventures of a young wizard named Harry Potter.",
           categories[6],
+          15,
           43,
           callback
         );
