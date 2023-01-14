@@ -24,7 +24,6 @@ exports.index = (req, res) => {
       }
     },
     (err, results) => {
-      console.log(results);
       res.render("index", {
         title: "Home",
         error: err,
@@ -35,13 +34,49 @@ exports.index = (req, res) => {
 };
 
 // Display list of all Items.
-exports.item_list = (req, res) => {
-  res.send("NOT IMPLEMENTED: Item list");
+exports.item_list = (req, res, next) => {
+  Item.find({}, "category name")
+    .sort({ name: 1 })
+    .populate("category")
+    .exec(function (err, list_items) {
+      if (err) {
+        return next(err);
+      }
+      //Successful, so render
+      console.log(list_items);
+      res.render("item_list", { title: "Item List", item_list: list_items });
+    });
 };
 
 // Display detail page for a specific Item.
-exports.item_detail = (req, res) => {
-  res.send(`NOT IMPLEMENTED: Item detail: ${req.params.id}`);
+exports.item_detail = (req, res, next) => {
+  async.parallel(
+    {
+      item(callback) {
+        Item.findById(req.params.id)
+          .populate("category")
+          .exec(callback);
+      }
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.item == null) {
+        // No results.
+        const err = new Error("Item not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Successful, so render.
+      console.log(results.item.category[0].name)
+      res.render("item_detail", {
+        name: results.item.name,
+        item: results.item,
+        categories: results.item.category,
+      });
+    }
+  );
 };
 
 // Display Item create form on GET.

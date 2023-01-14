@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 Item: #{item.name}
+  div(style='margin-left:20px;margin-top:20px')
+    dl
+      dt #{item.name}
+      each category in categories
+        dt
+            a(href=category.url) #{category.name}
+      dd #{item.description}
+      dd Price: $#{item.price}
+      dd Current stock: #{item.stock} units
