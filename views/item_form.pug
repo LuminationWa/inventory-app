@@ -13,7 +13,13 @@ block content
         - categories.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
         for category in categories
           if item
-            option(value=category._id selected=(category._id.toString()===item.category._id.toString() ? 'selected' : false) ) #{category.name}
+            option(
+                value=category._id
+                selected=(
+                  category._id.toString()==item.category._id
+                  || category._id.toString()==item.category
+                ) ? 'selected' : false
+              ) #{category.name}
           else
             option(value=category._id) #{category.name}
     div.form-group

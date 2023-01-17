@@ -10,4 +10,9 @@ block content
             a(href=category.url) #{category.name}
       dd #{item.description}
       dd Price: $#{item.price}
-      dd Current stock: #{item.stock} units
+      dd Current stock: #{item.stock} units    
+  hr
+  p
+    a(href=item.url+'/delete') Delete Item
+  p
+    a(href=item.url+'/update') Update Item
